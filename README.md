@@ -1,43 +1,34 @@
-# Welcome to future Ravencoin.org website codebase
-## READ.ME under construction!
-Current Build Status: ![Build Status](https://travis-ci.org/RavenProject/Ravencoin.svg?branch=master)
-Live site: [ravencoin.org](https://ravencoin.org)
-Report problems or help improve the site by opening a [new issue](https://github.com/RavenProject/ravenproject.github.io.org/issues/new) or [pull request](https://github.com/RavenProject/ravenproject.github.io.org/compare).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-> Note: The Ravencoin.com website now redirects to ravencoin.org
+## Getting Started
 
-## Earn Raven for Contributing to the Raven website (TBD)
-Open issues [labeled with "Bounty"](https://github.com/RavenProject/ravenproject.github.io/labels/Bounty)
-have bounties on them. Viewing the issue will reveal the value of the bounty.
-Submit a pull request resolving the issue along with an accompanying note or
-comment containing a raven address and automatically receive a payment in the
-amount of the bounty if it gets merged.
+First, run the development server:
 
-## Setup the website locally
-https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/
-View site on localhost:4000
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-## How to Participate
-1. Fork ravenproject.github.io
-2. Click the settings tab
-3. Rename repository from ravenproject.github.io to `username`.github.io
-4. Make changes.
-5. Ensure your changes are published with GitHub Pages at https://`username`.github.io
-6. Create a Pull Request from your repository to RavenProject
-7. Add comment to pull request to your local fork of the website. https://`username`.github.io
-8. Click the Create Pull Request button
-9. Wait for PR to be approved!
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Code of Conduct
-Participation in this project is subject to a [Code of Conduct](https://github.com/RavenProject/ravenproject.github.io/blob/master/CODE_OF_CONDUCT.md).
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-### Questions?
-Please join us in one of our [communities](https://ravenproject.github.io/community/) if you need help.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
-### Todo List
-The following are on the Ravencoin.org agenda.
-+ Integrate multiple languages and language templating.
-+ Refine overall templating and css structures.
-+ Continue to convert away from minima theme.
-+ Remove any lingering legacy/irrelevant data from minima theme.
-+ Fix minor issues on mobilewallet/support
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
