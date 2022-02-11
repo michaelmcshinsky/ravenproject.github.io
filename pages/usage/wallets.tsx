@@ -31,7 +31,7 @@ export default function Wallets() {
       <section className="py-24 page-banner">
         <Container width="3xl">
           <h1 className="mb-4 text-4xl font-medium text-center font-flow">
-            Get Your Wallet
+            Get a Wallet
           </h1>
           <p className="font-flow">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu
@@ -48,25 +48,37 @@ export default function Wallets() {
       </section>
       <section className="py-24">
         <Container>
-          <p className="mb-20 font-flow">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu
-            erat id dolor efficitur accumsan et ut enim. Ut tincidunt eu risus
-            et mollis. Cras finibus dui id odio gravida, in volutpat urna
-            congue. Proin in tortor bibendum, vulputate est sollicitudin,
-            pharetra est. Fusce vel facilisis justo. Aliquam quis nulla sodales,
-            dictum magna a, egestas turpis. Aenean congue sit amet tortor eget
-            hendrerit. Maecenas enim felis, vestibulum sed augue vel, eleifend
-            volutpat magna. Aliquam convallis fringilla dignissim. Maecenas
-            lectus ligula, luctus eget dignissim ut, tristique vulputate neque.
+          <h2 className="mt-6 mb-1 text-xl">What is a wallet?</h2>
+          <p>
+            Digital wallets are tools that monitor your funds, transaction
+            history and security options.
           </p>
-          <h2 className="pb-4 my-8 text-2xl border-b border-gray-300">
-            Desktop Wallets
+          <h2 className="mt-6 mb-1 text-xl">
+            Do I need a wallet to use Ravencoin?
           </h2>
-          <div className="flex justify-center space-x-8">
+          <p>
+            If you want to buy or transfer funds, mint or distribute assets, or
+            participate in Ravencoin blockchain technologies, then you will want
+            to get yourself a digital wallet. Since your wallet acts as your
+            personal account, never share your private keys with any third-party entity.
+          </p>
+          <h2 className="mt-6 mb-1 text-xl">How do I get a wallet?</h2>
+          <p>
+            Choose a wallet provider below based on your preferences to create
+            your personal address account with the Ravencoin blockchain.
+          </p>
+        </Container>
+      </section>
+      <section>
+        <Container>
+          <h3 className="pb-4 my-8 text-2xl border-b border-gray-300 text-raven-orange">
+            Desktop Wallets
+          </h3>
+          <div className="flex flex-wrap justify-center md:space-x-8">
             {DESKTOP_WALLETS.map((wallet) => (
               <div
                 key={wallet.name}
-                className="flex flex-col items-center justify-center px-8"
+                className="flex flex-col items-center justify-center px-8 my-4"
               >
                 <div className="select-none">
                   <Image
@@ -76,7 +88,7 @@ export default function Wallets() {
                     alt={wallet.name}
                   />
                 </div>
-                <h3 className="mt-4">{wallet.name}</h3>
+                <h4 className="mt-4">{wallet.name}</h4>
                 <a
                   href={wallet.download}
                   download
@@ -87,21 +99,21 @@ export default function Wallets() {
               </div>
             ))}
           </div>
-          <h2 className="pb-4 my-8 text-2xl border-b border-gray-300">
+          <h3 className="pb-4 my-8 text-2xl border-b border-gray-300 text-raven-orange">
             IOS Wallets
-          </h2>
-          <h2 className="pb-4 my-8 text-2xl border-b border-gray-300">
+          </h3>
+          <h3 className="pb-4 my-8 text-2xl border-b border-gray-300 text-raven-orange">
             Android Wallets
-          </h2>
-          <h2 className="pb-4 my-8 text-2xl border-b border-gray-300">
+          </h3>
+          <h3 className="pb-4 my-8 text-2xl border-b border-gray-300 text-raven-orange">
             Web Wallets
-          </h2>
-          <h2 className="pb-4 my-8 text-2xl border-b border-gray-300">
+          </h3>
+          <h3 className="pb-4 my-8 text-2xl border-b border-gray-300 text-raven-orange">
             Paper Wallets
-          </h2>
-          <h2 className="pb-4 my-8 text-2xl border-b border-gray-300">
+          </h3>
+          <h3 className="pb-4 my-8 text-2xl border-b border-gray-300 text-raven-orange">
             Opensource Wallets
-          </h2>
+          </h3>
         </Container>
       </section>
     </div>
