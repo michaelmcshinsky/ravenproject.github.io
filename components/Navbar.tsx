@@ -18,7 +18,7 @@ export function Navbar() {
       <div className="relative flex items-center justify-between h-16 px-4 mx-auto max-w-7xl">
         <NavbarToggle onClick={_toggle} />
         <div className="flex items-center justify-center flex-1 md:justify-between">
-          <NavbarBrand className="flex items-center px-6">
+          <NavbarBrand className="flex items-center px-6 select-none">
             <Image
               src="/branding/logo.svg"
               alt="Ravencoin Logo"
