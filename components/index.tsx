@@ -1,3 +1,4 @@
-export { Navbar } from './Navbar';
-export { Footer } from './Footer';
-export { Reveal } from './Reveal';
+export * from "./layout";
+export { Navbar } from "./Navbar";
+export { Footer } from "./Footer";
+export { Reveal } from "./Reveal";
