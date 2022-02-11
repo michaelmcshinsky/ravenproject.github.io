@@ -50,7 +50,7 @@ export function Dropdown({
         </svg>
       </button>
       {isDropdownOpen && (
-        <div className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+        <div className="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-52">
           <div className="flex flex-col px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
             {children}
           </div>

@@ -14,47 +14,66 @@ export function Navbar() {
   }
 
   return (
-    <nav className="relative z-50 text-gray-500 bg-white dark:bg-gray-900 dark:text-gray-300">
+    <nav className="relative z-50 text-gray-500 bg-white border-b border-gray-300 dark:bg-gray-900 dark:text-gray-300">
       <div className="relative flex items-center justify-between h-16 px-4 mx-auto max-w-7xl">
         <NavbarToggle onClick={_toggle} />
         <div className="flex items-center justify-center flex-1 md:justify-between">
-          <NavbarBrand className="px-6">
+          <NavbarBrand className="flex items-center px-6">
             <Image
               src="/branding/logo.svg"
               alt="Ravencoin Logo"
-              height={32}
-              width={32}
+              height={48}
+              width={48}
             />
+            <div className="-mt-1 text-3xl font-bold text-raven-blue">
+              Ravencoin
+            </div>
           </NavbarBrand>
           <div className="hidden ml-auto md:block">
             <div className="flex space-x-1">
               <NavbarLink href="/">Home</NavbarLink>
-              <NavbarLink href="/about">About</NavbarLink>
-              <Dropdown title="Developers">
-                <NavbarLink href="/developers/whitepaper">
-                  Whitepaper
+              <Dropdown title="Usage">
+                <NavbarLink href="/usage/wallets">Get Your Wallet</NavbarLink>
+                <NavbarLink href="/usage/mint-assets">Mint Assets</NavbarLink>
+                <NavbarLink href="/usage/get-rvn">Get Ravencoin</NavbarLink>
+                <NavbarLink href="/usage/run-a-node">Run a Node</NavbarLink>
+              </Dropdown>
+              <Dropdown title="Learn">
+                <NavbarLink href="/learn/what-is-ravencoin">
+                  What is Ravencoin?
                 </NavbarLink>
-                <NavbarLink href="/developers/pools">Mining Pools</NavbarLink>
-                <NavbarLink href="/developers/block-explorer">
-                  Block Explorer
+                <NavbarLink href="/learn/what-is-rvn">What is RVN?</NavbarLink>
+                <NavbarLink href="/learn/what-is-rvn">
+                  Ravecoin Assets
                 </NavbarLink>
-                <NavbarLink href="/developers/asset-explorer-1">
-                  Asset Explorer 1
+                <NavbarLink href="/learn/whitepaper">
+                  Ravencoin Whitepaper
                 </NavbarLink>
-                <NavbarLink href="/developers/asset-explorer-2">
-                  Asset Explorer 2
+                <NavbarLink href="/learn/guides-and-resources">
+                  Guides &amp; Resources
                 </NavbarLink>
               </Dropdown>
-              <Dropdown title="Individuals">
-                <NavbarLink href="/buy-ravencoin">Buy Ravencoin</NavbarLink>
-                <NavbarLink href="/wallets">Wallet</NavbarLink>
-                <NavbarLink href="/ledger">Ledger</NavbarLink>
+              <Dropdown title="Developers">
+                <NavbarLink href="/developers">
+                  Developer Portal
+                </NavbarLink>
+                <NavbarLink href="/developers/documentation">
+                  Documentation
+                </NavbarLink>
+                <NavbarLink href="/developers/tutorials">Tutorials</NavbarLink>
+                <NavbarLink href="/developers/pools">Mining Pools</NavbarLink>
+                <NavbarLink href="/developers/explorers">Explorers</NavbarLink>
               </Dropdown>
               <Dropdown title="Community">
-                <NavbarLink href="/community">Community</NavbarLink>
-                <NavbarLink href="/projects">Projects</NavbarLink>
-                <NavbarLink href="/updates">Updates</NavbarLink>
-                <NavbarLink href="/media-kit">Media Kit</NavbarLink>
+                <NavbarLink href="/community/hub">Community Hub</NavbarLink>
+                <NavbarLink href="/community/online">
+                  Online Communities
+                </NavbarLink>
+                <NavbarLink href="/community/get-involved">
+                  Get Involved
+                </NavbarLink>
+                <NavbarLink href="/community/support">Get Support</NavbarLink>
+                <NavbarLink href="/community/branding">Branding</NavbarLink>
               </Dropdown>
             </div>
           </div>

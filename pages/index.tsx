@@ -8,47 +8,72 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   return (
     <>
-      <section className="relative py-48 overflow-hidden text-white">
-        <div className={styles.bg}></div>
-        <div className={styles.bg2}></div>
-        <div className={styles.bg3}></div>
-        <div className="max-w-4xl px-4 mx-auto">
+      <section className="relative max-w-6xl px-4 py-48 mx-auto overflow-hidden">
+        <div className="relative z-20">
           <Reveal>
-            <h1 className="max-w-xl mb-4 text-3xl font-medium leading-tight sm:text-5xl">
-            Issue assets and securities on a secure and decentralized
+            <h1 className="max-w-xl mb-4 text-6xl font-bold leading-tight text-gray-900 sm:text-5xl">
+              Issue assets and securities on a secure and decentralized
               blockchain
             </h1>
           </Reveal>
           <Reveal timeout={250}>
-            <div className="max-w-lg mb-4">
-              <h2 className="text-xl leading-tight text-white">
-                Ravencoin is a peer-to-peer blockchain, handling the efficient creation and
-                transfer of assets from one party to another.
-              </h2>
-            </div>
+            <h2 className="max-w-lg mb-4 text-2xl font-medium leading-tight text-raven-blue">
+              Ravencoin is a peer-to-peer blockchain, handling the efficient
+              and affordable creation of assets from one party to another.
+            </h2>
           </Reveal>
           <Reveal timeout={500}>
             <div className="flex flex-wrap">
               <Link href="/get-started">
-                <a className="py-4 mx-4 my-3 ml-0 font-medium leading-none duration-500 transform rounded border-s px-11 border-raven-yellow bg-raven-yellow hover:text-raven-blue hover:border-gray-100 hover:bg-gray-100 ease">
+                <a className="px-10 py-4 mx-4 my-3 ml-0 font-medium leading-none duration-200 transform bg-gray-100 border-2 rounded hover:text-white hover:bg-raven-blue hover:border-raven-blue active:bg-raven-blue active:border-raven-blue focus:bg-raven-blue focus:border-raven-blue ease">
                   Get Started
                 </a>
               </Link>
               <Link href="/wallet">
-                <a className="px-4 py-4 mx-4 my-3 ml-0 font-medium leading-none duration-500 transform border-2 rounded hover:text-raven-blue hover:bg-gray-100 ease">
+                <a className="px-4 py-4 mx-4 my-3 ml-0 font-medium leading-none duration-200 transform bg-gray-100 border-2 rounded hover:text-white hover:bg-raven-blue hover:border-raven-blue active:bg-raven-blue active:border-raven-blue focus:bg-raven-blue focus:border-raven-blue ease">
                   Choose Your Wallet
                 </a>
               </Link>
             </div>
           </Reveal>
         </div>
+        <div className="absolute bottom-0 right-0 z-10 top-24">
+          {/* <svg
+            width="567"
+            height="740"
+            viewBox="0 0 567 740"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M321.199 748.917L567 923.001L410.958 214.678L321.199 748.917ZM316.227 747.283L166.537 749.19L405.158 217.402L316.227 747.283ZM152.452 735.568L37.8368 316.568L81.1973 264.261L152.452 735.568ZM207.688 78.7344L396.32 204.053L120.691 116.058L207.688 78.7344ZM231.44 78.7344L348.541 82.5484L365.664 130.769L231.44 78.7344Z"
+              fill="#384182"
+            />
+            <path
+              d="M89.4824 248.186L391.348 207.322L119.31 122.868L89.4824 248.186ZM161.013 90.7206L144.442 46.3142L231.439 8.99097L161.013 90.7206ZM135.881 41.9553L116.272 111.698L0.275864 81.4579L135.881 41.9553Z"
+              fill="#F79534"
+            />
+            <path
+              d="M159.909 746.464L401.843 212.497L86.4444 256.086L159.909 746.464ZM216.802 78.7329L365.94 136.216L401.843 201.6L216.802 78.7329ZM309.323 35.1437L346.607 75.7361L222.878 72.7394L309.323 35.1437ZM244.144 3.54162L303.247 30.5124L168.47 89.0853L244.144 3.54162ZM176.756 0H240.277L141.957 37.5956L176.756 0ZM140.024 49.8551L155.213 94.5339L124.834 108.973L140.024 49.8551Z"
+              fill="#F0513A"
+            />
+          </svg> */}
+          <Image
+            src="/pages/home/welcome-banner-2.png"
+            height={522}
+            width={700}
+            alt="Welcome Banner"
+          />
+        </div>
       </section>
-      <Carousel/>
-      <section className="py-24 bg-blue-100/25">
+      {/* <Carousel /> */}
+      <section className="py-24">
         <div className="flex max-w-5xl px-4 mx-auto mb-8">
           <div className="w-full max-w-3xl mx-auto text-center">
             <Reveal timeout={750}>
-              <h2 className="mb-4 text-5xl font-medium text-raven-blue">Welcome to Ravencoin</h2>
+              <h2 className="mb-4 text-5xl font-bold text-gray-900">
+                Welcome to Ravencoin
+              </h2>
               <p className="mb-4 text-xl font-medium leading-tight text-raven-yellow">
                 Create and Trade Security tokens worldwide in minutes
               </p>
@@ -62,7 +87,7 @@ export default function Home() {
               </p>
               <ul className="flex flex-wrap mt-8 text-gray-800">
                 <li className="w-1/2 px-4 mb-4 sm:w-1/3 md:w-1/5">
-                  <div>
+                  <div className="select-none">
                     <Image
                       src="/pages/home/icon-assets.png"
                       alt="Project Assets"
@@ -70,10 +95,12 @@ export default function Home() {
                       height={75}
                     />
                   </div>
-                  <h3 className="inline-block pb-1 font-medium border-b-2 border-raven-yellow">Physical Assets</h3>
+                  <h3 className="inline-block pb-1 font-medium border-b-2 border-raven-yellow">
+                    Physical Assets
+                  </h3>
                 </li>
                 <li className="w-1/2 px-4 mb-4 sm:w-1/3 md:w-1/5">
-                  <div>
+                  <div className="select-none">
                     <Image
                       src="/pages/home/icon-shares.png"
                       alt="Project Shares"
@@ -81,10 +108,12 @@ export default function Home() {
                       height={75}
                     />
                   </div>
-                  <h3 className="inline-block pb-1 font-medium border-b-2 border-raven-yellow">Project Shares</h3>
+                  <h3 className="inline-block pb-1 font-medium border-b-2 border-raven-yellow">
+                    Project Shares
+                  </h3>
                 </li>
                 <li className="w-1/2 px-4 mb-4 sm:w-1/3 md:w-1/5">
-                  <div>
+                  <div className="select-none">
                     <Image
                       src="/pages/home/icon-credits.png"
                       alt="Credits"
@@ -92,10 +121,12 @@ export default function Home() {
                       height={75}
                     />
                   </div>
-                  <h3 className="inline-block pb-1 font-medium border-b-2 border-raven-yellow">Credit</h3>
+                  <h3 className="inline-block pb-1 font-medium border-b-2 border-raven-yellow">
+                    Credit
+                  </h3>
                 </li>
                 <li className="w-1/2 px-4 mb-4 sm:w-1/3 md:w-1/5">
-                  <div>
+                  <div className="select-none">
                     <Image
                       src="/pages/home/icon-virtual-goods.png"
                       alt="Virtual Goods"
@@ -103,10 +134,12 @@ export default function Home() {
                       height={75}
                     />
                   </div>
-                  <h3 className="inline-block pb-1 font-medium border-b-2 border-raven-yellow">Virtual Goods</h3>
+                  <h3 className="inline-block pb-1 font-medium border-b-2 border-raven-yellow">
+                    Virtual Goods
+                  </h3>
                 </li>
                 <li className="w-1/2 px-4 mb-4 sm:w-1/3 md:w-1/5">
-                  <div>
+                  <div className="select-none">
                     <Image
                       src="/pages/home/icon-digital-assets.png"
                       alt="Digital Assets"
@@ -114,7 +147,9 @@ export default function Home() {
                       height={75}
                     />
                   </div>
-                  <h3 className="inline-block pb-1 font-medium border-b-2 border-raven-yellow">Digital Assets</h3>
+                  <h3 className="inline-block pb-1 font-medium border-b-2 border-raven-yellow">
+                    Digital Assets
+                  </h3>
                 </li>
               </ul>
             </Reveal>

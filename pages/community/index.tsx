@@ -1,3 +1,5 @@
 export default function Community() {
-  return <div>Community</div>;
+  return (
+    <div>Community</div>
+  )
 }
