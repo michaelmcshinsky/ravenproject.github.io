@@ -26,7 +26,7 @@ export function Dropdown({
   }
 
   const btnClasses = classNames(
-    "relative px-4 py-2 text-sm font-medium rounded-md",
+    "relative px-4 py-2 text-base font-medium rounded-md",
     "text-gray-900 hover:bg-raven-yellow hover:text-white",
     "transform duration-300 ease",
     className

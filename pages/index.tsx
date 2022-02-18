@@ -8,16 +8,16 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   return (
     <>
-      <section className="relative max-w-6xl px-4 py-48 mx-auto overflow-hidden">
+      <section className="relative max-w-7xl px-4 py-48 mx-auto overflow-hidden">
         <div className="relative z-20">
           <Reveal>
-            <h1 className="max-w-xl mb-4 text-6xl font-bold leading-tight text-gray-900 sm:text-5xl">
+            <h1 className="max-w-xl mb-4 text-7xl font-bold leading-tight text-blue-900 sm:text-5xl">
               Issue assets and securities on a secure and decentralized
               blockchain
             </h1>
           </Reveal>
           <Reveal timeout={250}>
-            <h2 className="max-w-lg mb-4 text-2xl font-medium leading-tight text-raven-blue">
+            <h2 className="max-w-lg mb-4 text-2xl font-medium leading-tight text-black">
               Ravencoin is a peer-to-peer blockchain, handling the efficient
               and affordable creation of assets from one party to another.
             </h2>
@@ -67,11 +67,11 @@ export default function Home() {
         </div>
       </section>
       {/* <Carousel /> */}
-      <section className="py-24">
-        <div className="flex max-w-5xl px-4 mx-auto mb-8">
+      <section className="my-16 pt-32 pb-24 bg-blue-100/30 border-t border-b border-blue-100 skew-y-[-3deg]">
+        <div className="flex max-w-5xl px-4 mx-auto mb-8 skew-y-[3deg]">
           <div className="w-full max-w-3xl mx-auto text-center">
             <Reveal timeout={750}>
-              <h2 className="mb-4 text-5xl font-bold text-gray-900">
+              <h2 className="mb-4 text-5xl font-medium text-raven-blue">
                 Welcome to Ravencoin
               </h2>
               <p className="mb-4 text-xl font-medium leading-tight text-raven-yellow">

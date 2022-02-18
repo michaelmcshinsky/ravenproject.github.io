@@ -8,7 +8,7 @@ type FooterSocialProps = {
 
 export function FooterSocial({ className, href, icon }: FooterSocialProps) {
   const classes = classNames(
-    "p-2 text-sm text-2xl cursor-pointer",
+    "p-2 text-base text-2xl cursor-pointer",
     "text-gray-100 hover:text-raven-yellow",
     'block w-10 h-10 flex items-center justify-center',
     className

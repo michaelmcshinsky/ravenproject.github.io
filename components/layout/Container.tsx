@@ -16,7 +16,7 @@ export function Container({
   const classes = classNames(
     "rvn--layout_container",
     "mx-auto px-4",
-    width ? `max-w-${width}` : "max-w-6xl",
+    width ? `max-w-${width}` : "max-w-7xl",
     className
   );
 

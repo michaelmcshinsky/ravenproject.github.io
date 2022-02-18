@@ -5,7 +5,7 @@ import FooterSocial from "./FooterSocial";
 
 export function Footer() {
   return (
-    <footer className="py-16 text-white bg-raven-blue">
+    <footer id="#rvn--footer" className="py-16 text-white bg-raven-blue">
       <div className="flex flex-wrap mx-auto max-w-7xl">
         <div className="w-full px-4 pl-0 sm:w-1/2 md:flex-1">
           <Image

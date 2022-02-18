@@ -14,7 +14,7 @@ export function FooterLink({
   href,
 }: FooterLinkProps) {
   const classes = classNames(
-    "py-2 text-sm cursor-pointer",
+    "py-2 text-base cursor-pointer",
     "text-gray-100 hover:text-raven-yellow",
     className
   );

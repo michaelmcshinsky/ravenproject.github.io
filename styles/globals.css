@@ -1,21 +1,63 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Piazzolla:wght@300;400;500;600;700&family=Flow+Rounded&family=IBM+Plex+Sans:wght@100;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Piazzolla:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,500&display=swap");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.5.0/css/brands.min.css");
 
 @tailwind base;
+
+h1 {
+  @apply text-3xl;
+}
+h2 {
+  @apply mt-4 mb-2 text-2xl;
+}
+h3 {
+  @apply mt-4 mb-2 text-xl font-normal;
+}
+h4 {
+  @apply mt-4 text-lg font-normal;
+}
+
+p {
+  @apply mb-4;
+}
+/* 
+main a[href] {
+  @apply text-blue-500;
+}
+main a[href]:hover,
+main a[href]:focus,
+main a[href]:active {
+  @apply text-blue-700;
+} */
+
 @tailwind components;
 @tailwind utilities;
 
 html,
 body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Inter", sans-serif;
 }
 
 p {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .font-flow {
   font-family: "Flow Rounded", cursive;
+}
+
+#rvn--navbar,
+#rvn--footer {
+  font-family: "Inter", sans-serif;
 }
 
 .rvn--navbar_brand {
@@ -27,4 +69,28 @@ p {
   background-position: center center;
   background-size: cover;
   color: #fff;
+}
+
+table {
+  margin-bottom: 30px;
+  width: 100%;
+  text-align: left;
+  color: #3f3f3f;
+  border-collapse: collapse;
+  border: 1px solid #e8e8e8;
+}
+table tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+table th,
+table td {
+  padding: 10px 15px;
+}
+table th {
+  background-color: #f0f0f0;
+  border: 1px solid #dedede;
+  border-bottom-color: #c9c9c9;
+}
+table td {
+  border: 1px solid #e8e8e8;
 }

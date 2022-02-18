@@ -16,7 +16,7 @@ export function NavbarLink({
   href,
 }: NavbarLinkProps) {
   const classes = classNames(
-    "px-4 py-2 text-sm font-medium rounded-md",
+    "px-4 py-2 text-base font-medium rounded-md",
     "text-gray-900 hover:bg-raven-yellow hover:text-white",
     'transform duration-300 ease',
     block && "block",
