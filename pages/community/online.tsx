@@ -1,5 +1,7 @@
-export default function Online() {
+import { PageHeader } from "@/components"
+
+export default function OnlineCommunities() {
   return (
-    <div>Online</div>
+    <PageHeader title="Online Communities" color="orange" />
   )
 }

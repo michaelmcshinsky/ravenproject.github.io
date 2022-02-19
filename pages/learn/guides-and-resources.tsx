@@ -1,5 +1,7 @@
+import { PageHeader } from "@/components"
+
 export default function GuidesAndResources() {
   return (
-    <div>GuidesAndResources</div>
+    <PageHeader title="Guides &amp; Resources"/>
   )
 }

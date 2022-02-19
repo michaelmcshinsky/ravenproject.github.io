@@ -1,3 +1,7 @@
+import { PageHeader } from "@/components"
+
 export default function Explorers() {
-  return <div>Explorers</div>;
+  return (
+    <PageHeader title="Blockchain Explorers"/>
+  )
 }

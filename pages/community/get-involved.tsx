@@ -1,5 +1,7 @@
+import { PageHeader } from "@/components"
+
 export default function GetInvolved() {
   return (
-    <div>GetInvolved</div>
+    <PageHeader title="Get Involved" color="orange" />
   )
 }

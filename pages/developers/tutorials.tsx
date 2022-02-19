@@ -1,5 +1,7 @@
+import { PageHeader } from "@/components"
+
 export default function Tutorials() {
   return (
-    <div>Tutorials</div>
+    <PageHeader title="Tutorials"/>
   )
 }

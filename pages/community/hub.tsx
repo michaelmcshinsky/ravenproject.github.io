@@ -1,5 +1,7 @@
+import { PageHeader } from "@/components"
+
 export default function Hub() {
   return (
-    <div>Hub</div>
+    <PageHeader title="Community Hub" color="orange" />
   )
 }

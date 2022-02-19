@@ -1,0 +1,518 @@
+import { PageSidebarLayout } from "@/components";
+
+export const meta = {
+  title: "A Guide to Ravencoin Assets",
+};
+
+## What is an asset?
+
+A Ravencoin asset (also less commonly referred to as a token) is an on-chain way of creating, storing, and transfering custom end-user generated information. Assets come with a unique, user-chosen name which can allow for assets to be verified by name only and metadata (which we will look into later). Ravencoin users have created assets to make their own 'coin', sell digital art, real estate, gem stones, security tokens, wine futures, and even incorporated it as an in-video game currency.
+
+## Where can I trade assets?
+
+[Raven Trader](https://raventrader.net/) is a on-chain peer to peer market which utilises{" "} [RIP-15](https://github.com/RavenProject/rips/blob/master/rip-0015.mediawiki) {" "} for users to post half-signed atomic swaps. There are also asset markets such as [RVNTF](https://www.rvnft.art/) and{" "} [RVNBay](https://rvnbay.com/). In addition, one can pay for a listing at [Cryptosx](https://cryptosx.io/) for security tokens or [OKEX](https://www.okex.com) for regular tokens.
+
+## Privacy and Access
+
+A common question about assets is who can see whats on an asset and is there any way to limit viewership of the asset to a recipient. The simple answer is that anyone is able to see the data associated with an asset, however there are protocols (see{" "} [RIP-10](https://github.com/RavenProject/rips/blob/master/rip-0010.mediawiki) ,{" "} [RIP-11](https://github.com/RavenProject/rips/blob/master/rip-0011.mediawiki) , and{" "} [RIP-14](https://github.com/RavenProject/rips/blob/master/rip-0014.mediawiki) ) that allow for the encryption of IPFS data such that only a recipient of an asset may view it.
+
+## The Jargon...
+
+When dealing with assets, it is inevitable that you will eventually come across some strange words denoting strange concepts. Before we move on, you should familiarize yourself with these concepts.
+
+- ### Reissuability
+  This is a metadata flag that denotes whether or not an asset can be reissued. Once this flag is set to false it CANNOT be changed back! If you want (or have even a sliver of belief) that you want to change your asset's information in the future, ensure that you asset is reissuable when you create it!
+- ### Divisibility (Units)
+  Units is a metadata value from zero to eight that denotes how much an asset can be broken up. Specifically this number is how many digits past the decimal this asset can be divided into (a minimum size of 10-d where d is the divisibility).
+  . Units=0 means the tokens are not divisible at all -- whole tokens only can be transferred. Units=2 would be two decimal places like cents on a dollar it would be possible to transfer 0.01. Units=8 is the most divisible and allows tokens to be tranferred in increments of 0.00000001.
+- ### Reissuing
+  Reissuing an asset is an act that does one or both of the following:
+  - Changing the metadata associated with an asset.
+  - Creating more of an asset.
+    In order to reissue an asset, the asset must be reissuable and you must have the associated ownership asset.
+    When changing divisibility during a reissuance, the divisibility can only go up. (What would happen if you changed divisibility to zero when users had fractions of an asset?)
+    When increasing divisibility, you cannot use the new lowest asset amount when creating more of the asset; the asset still has the old divisibility amount until the reissue transaction exits the mempool.
+- ### Ownership Assets
+  When creating certain types of assets, you will also receive an ownership asset. Ownship assets allow a user to reissue an asset and create "child assets" which we will explore in the next section. Ownership assets always come in the form of an exclamation point (!) coming after whatever you named your asset. For instance, say we create an asset named "ASSET". The associated ownership asset would be "ASSET!". If an asset A requires the ownership asset of asset B to be created, asset B is said to be asset A's "parent" and asset A is said to be asset B's "child".
+- ### Associated Data
+  Or IPFS hash or associated TXID. 32 bytes of user-decided information. Generally this is used with an IPFS hash or a TXID, but it can be anything.
+- ### Message Broadcasts
+  Any owner of any asset can broadcast a 32 byte message associated with that asset. We will go more in-depth with broadcasts later.
+- ### Null Asset Tags
+  These are special{" "} [scripts](https://en.bitcoin.it/wiki/Script) used by holders of qualifier assets and restricted ownership assets to define behavior between restricted assets and addresses. The relationship between qualifiers, restricted assets, tags, and addresses is fairly complicated. We will go more in-depth further down the page.
+
+## Creating Assets
+
+When creating an asset, you need to know what type of asset you want, the name of the asset, the amount of an asset, how much it costs to create an asset, and the metadata associated with an asset.
+
+Assets cannot be differentiated against one another except through their names. This means that all asset names must be unique; an asset creation will not be accepted by the chain if the name is not unique.
+
+Asset names are encoded via the ascii scheme. This means that asset names can currently only be in the latin alphabet.
+
+The cost of creating an asset can also be see more of as cost to "reserve the name"; this cost is static no matter how much of an asset you create (However, do note that it costs 100 RVN to reissue an asset).
+
+When creating a child asset the parent asset and parent ownership asset have no control over it. If you wish to have more control over assets, see{" "} [restricted assets](#qualifiers_restricted_tags)
+
+To put this information in a more readable format, all of the upcoming asset types will contain the following chart:
+
+| Metadata        | Information                    |
+| --------------- | ------------------------------ |
+| Asset Name      | Name specifications            |
+| Ownership Asset | Ownership specifications       |
+| Prerequisites   | Prerequisite specifications    |
+| Asset Amount    | Amount specifications          |
+| Cost            | Cost specifications            |
+| Reissuability   | Reissuability specifications   |
+| Divisibility    | Divisibility specifications    |
+| Associated Data | Associated data specifications |
+
+This table denotes the fields avaliable and their limitations.
+
+For instance, an ownership asset table looks like this:
+
+| Metadata        | Information                                 |
+| --------------- | ------------------------------------------- |
+| Asset Name      | Base asset name + '!'                       |
+| Ownership Asset | No associated ownership asset               |
+| Prerequisites   | Created with another asset                  |
+| Asset Amount    | There can only be 1 of some ownership asset |
+| Cost            | Comes with the base asset                   |
+| Reissuability   | Cannot be reissued                          |
+| Divisibility    | Has 0 divisibility                          |
+| Associated Data | No data can be associated                   |
+
+## The Big Three
+
+When working with Ravencoin assets you will most likely be using one of these three. They are by far the most used types of assets. It can help to think of these assets as pieces of some abstract on-chain website.
+
+### Main assets
+
+Running on our website analogy, a main asset is like the domain name.
+
+| Metadata        | Information                                                                                                                                                                                                                                        |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Asset Name      | 3-30 capital letters. '.' and '\_' are also allowed, but they cannot be at the beginning or end of the asset name. More than one of these special characters also cannot be next to one another. The names RVN, RAVEN, and RAVENCOIN are reserved. |
+| Ownership Asset | Main assets have an associated ownership asset                                                                                                                                                                                                     |
+| Prerequisites   | None                                                                                                                                                                                                                                               |
+| Asset Amount    | 1 - 21,000,000,000 of this asset can be created                                                                                                                                                                                                    |
+| Cost            | 500 RVN                                                                                                                                                                                                                                            |
+| Reissuability   | This asset can be set to be reissued                                                                                                                                                                                                               |
+| Divisibility    | Divisibility can be set from 0-8                                                                                                                                                                                                                   |
+| Associated Data | This asset can have associated data                                                                                                                                                                                                                |
+
+The ownership asset of a main asset is required to create the following two assets.
+
+### Sub-assets
+
+A sub-asset can be likened to a website's path. Creating a sub asset requires a main asset ownership token.
+
+| Metadata        | Information                                                                                                                                                                                                                                                                                                                                                                   |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Asset Name      | The sub-portion of the name must be at least 1 capital letter. '.' and '\_' are also allowed, but they cannot be at the beginning or end of the sub-portion. More than one of these special characters also cannot be next to one another.<br/><br/>The full sub-asset name takes the form \[main asset name\]/\[sub-portion\]. This full name must be 30 or less characters. |
+| Ownership Asset | Sub-assets have an associated ownership asset                                                                                                                                                                                                                                                                                                                                 |
+| Prerequisites   | A main asset's ownership asset                                                                                                                                                                                                                                                                                                                                                |
+| Asset Amount    | 1 - 21,000,000,000 of this asset can be created                                                                                                                                                                                                                                                                                                                               |
+| Cost            | 100 RVN                                                                                                                                                                                                                                                                                                                                                                       |
+| Reissuability   | This asset can be set to be reissued                                                                                                                                                                                                                                                                                                                                          |
+| Divisibility    | Divisibility can be set from 0-8                                                                                                                                                                                                                                                                                                                                              |
+| Associated Data | This asset can have associated data                                                                                                                                                                                                                                                                                                                                           |
+
+### Unique assets
+
+A unique asset can be likened to a file on a website. Creating a unique asset requires a main asset ownership token or a sub-asset ownership token. There can only be 1 of a unique asset.
+
+| Metadata        | Information                                                                                                                                                                                         |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Asset Name      | The unique portion of the name must be at least 1 character. The full unique asset name takes the form \[main or sub asset name\]#\[unique portion\]. This full name must be 30 or less characters. |
+| Ownership Asset | Unique assets have no associated ownership asset                                                                                                                                                    |
+| Prerequisites   | A main asset or sub-asset's ownership asset                                                                                                                                                         |
+| Asset Amount    | 1 of this asset can be created                                                                                                                                                                      |
+| Cost            | 5 RVN                                                                                                                                                                                               |
+| Reissuability   | This asset cannot be reissued                                                                                                                                                                       |
+| Divisibility    | Divisibility is 0                                                                                                                                                                                   |
+| Associated Data | This asset can have associated data                                                                                                                                                                 |
+
+## Broadcasts and Message Channels
+
+Our next asset type is a message channel, and we cannot talk about message channels without first talking about broadcasts, and we can't talk about broadcasts without talking about messages. It is important to note that asset broadcasts and message channels are rarely used and their use-case has not been solidified by the community.
+
+### Asset Messages
+
+Any user can send an asset message on any asset that they own. An asset message is 34 bytes long and is seen as directed to the asset recipient.
+
+### Asset Broadcasts
+
+In an asset transaction, if the sending address is the same as the receiving address, this is seen as a broadcast. Only message channels can broadcast messages. It is important to note that the user interface for message broadcasts do not seem to be fully implemented in the core wallet yet.
+
+### Message Channels
+
+A message channel requires a main or sub-asset's ownership asset. A message channel is an asset specifically made for broadcasting messages. Their purpose is to add more control to whoever might be subscribed to the message channel's parent.
+
+| Metadata        | Information                                                                                                                                                                                                                                                                                                                                                                                          |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Asset Name      | The message channel portion of the name must at most 12 characters. It can contain letters, numbers, and '_'. '_' cannot be at the beginning or end of the message channel portion and two or more '\_''s cannot be next to each other.<br/><br/>The message channel asset name takes the form \[main or sub asset name\]~\[message channel portion\]. This full name must be 30 or less characters. |
+| Ownership Asset | Message channel assets have no associated ownership asset                                                                                                                                                                                                                                                                                                                                            |
+| Prerequisites   | A main asset or sub-asset's ownership asset                                                                                                                                                                                                                                                                                                                                                          |
+| Asset Amount    | 1 of this asset can be created                                                                                                                                                                                                                                                                                                                                                                       |
+| Cost            | 100 RVN                                                                                                                                                                                                                                                                                                                                                                                              |
+| Reissuability   | This asset cannot be reissued                                                                                                                                                                                                                                                                                                                                                                        |
+| Divisibility    | Divisibility is 0                                                                                                                                                                                                                                                                                                                                                                                    |
+| Associated Data | This asset cannot have associated data                                                                                                                                                                                                                                                                                                                                                               |
+
+## Qualifiers, restricted assets, addresses, and tags
+
+This is where things really start to get complicated. First you should know that qualifier assets, or simply qualifiers, dictate what addresses can hold a restricted asset by "qualifying" them with a null asset tag. A restricted asset can be associated with 0 or more qualifiers. The main factor in deciding whether or not an address can recieve a restricted asset is whether that address has been qualifier by all of the qualifiers associated with the said restricted asset.
+
+This means you DO NOT WANT TO SEND QUALIFIERS to addresses you do not trust! Qualifiers are an administrative asset much like ownership assets.
+
+\*phew\*
+
+Lets start out with some definitions.
+
+- ### Asset Tags
+  An asset tag determines whether or not an address is able to receive a restricted asset. It costs 0.1 RVN to create an asset tag. There are three types of asset tags:
+  - #### Null Asset Tag
+    A null asset tag has two sub-types:
+    - Qualifying Null Asset Tag: This type of null asset tag can be created with a qualifier asset. It qualifies or unqualifies some address.
+    - Restricted Null Asset Tag: This type of null asset tag can be created with a restricted asset's ownership asset. It can add or remove an address from being blacklisted from receiving this restricted asset no matter the address's qualifications.
+  - #### Verifier Asset Tag
+    A verifier asset tag can be created with a restricted asset's ownership asset. It associates this restricted asset with one or more qualifiers. (This means that to recieve this restricted asset, an address must be qualified by all of the qualifiers defined in this tag).
+  - #### Restricted Asset Tag
+    Also known as a global freeze tag, a restricted asset tag can be created with a restricted asset's ownership asset. This tag can freeze or unfreeze all movements across all addresses of this restricted asset.
+- ### Qualifier Asset
+
+  Qualifier assets are administrative assets (in the same group as ownership assets) used to determine what addresses can receive restricted assets. Simply owning a qualifier asset gives a user this power.
+  | Metadata | Information |
+  | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Asset Name | The qualifier portion of the name has the same naming rules as a main asset.<br/><br/>The qualifier asset name takes the form #\[qualifier portion\]. Note how this is differentiated from unique assets with the fact that a qualifier has no parent. This full name must be less than 30 characters. |
+  | Ownership Asset | Qualifier assets have no associated ownership asset |
+  | Prerequisites | None |
+  | Asset Amount | 1 - 10 of this asset can be created |
+  | Cost | 1000 RVN |
+  | Reissuability | This asset cannot be reissued |
+  | Divisibility | Divisibility is 0 |
+  | Associated Data | This asset can have associated data. Note: because qualifiers cannot be reissued, if you choose to have associated data, it cannot be changed in the future. |
+
+- ### Sub-qualifier Asset
+
+  Currently, sub-qualifiers have exactly the same powers as their parents. Sub-qualifiers use a parent qualifier asset in lieu of a parent ownership asset in its creation.
+  | Metadata | Information |
+  | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Asset Name | The sub-qualifier portion of the name has the same naming rules as a sub-asset.<br/><br/>The sub-qualifier asset name takes the form #\[qualifier portion\]/#\[sub-qualifier\]. Note how this is differentiated from unique assets with the fact the the intermediary characters are '/#' This full name must be less than 30 characters. |
+  | Ownership Asset | Qualifier assets have no associated ownership asset |
+  | Prerequisites | A qualifier |
+  | Asset Amount | 1 - 10 of this asset can be created |
+  | Cost | 100 RVN |
+  | Reissuability | This asset cannot be reissued |
+  | Divisibility | Divisibility is 0 |
+  | Associated Data | This asset can have associated data. Note: because qualifiers cannot be reissued, if you choose to have associated data, it cannot be changed in the future. |
+
+- ### Restricted Asset
+  Restricted assets are comparable to main assets except for the fact that they are, well, restricted. Currently restricted assets can only be associated with main qualifiers (not sub-qualifiers). If a restricted asset is not associated with any qualifier, it cannot be transfered. Restricted assets are also somewhat unique in the fact that if they can be reissued, they are able to change what qualifiers they are associated with.
+  | Metadata | Information |
+  | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+  | Asset Name | The restricted portion of the name has the same naming rules as a main asset.<br/><br/>The restricted asset name takes the form $\[restricted protion\]. This full name must be less than 30 characters. |
+  | Ownership Asset | Restricted assets have an associated ownership asset |
+  | Prerequisites | A qualifier |
+  | Asset Amount | 1 - 21,000,000,000 of this asset can be created |
+  | Cost | 1500 RVN |
+  | Reissuability | This asset can be reissued |
+  | Divisibility (Units) | Divisibility (Units) can be 0 - 8 |
+  | Associated Data | This asset can have associated data. |
+
+## What is stored on the chain?
+
+All asset creations, reissues, transfers, and tags are special scripts and are part of normal transactions.
+
+When an asset is created, nodes store the asset name, reissuability, divisions, associated data, and respective VOUT information in a database. This is how nodes easily access metadata. During a reissuance, the ownership asset must be sent to prove ownership on-chain and the node will save the new metadata. These asset creation and reissuance transactions are the only places where the metadata is stored on the chain.
+
+This means that, say, a 3rd party wallet sends you asset information. Whatever protocol they are using will need to send the client the VOUT of asset creations or reissues so that the client may verify the integrity of the metadata.
+
+The same is true for asset tags. They only exist on the chain in one singular transaction. The node then keeps track of where that transaction is in a database for verification later.
+
+You may have been surprised earlier when learning that the associated data of an asset is only 32 bytes. You are correct in believing that is not a lot of information. This is an intentional decision to keep clutter off of the chain. Typically, users will use this field for an [IPFS hash](https://ipfs.io/#how){" "} allowing for websites and files to be stored and hosted off chain whether it be on personal hardware or{" "} [cloud file management hosts](https://ravencoinipfs.com/) . IPFS hashs are unique (literally a SHA256 hash of the data) and therefore a user can be confident that an IPFS hash on an asset will always point to the correct data.
+
+## Burn Addresses
+
+In order to create an asset, a certain amount of RVN must be sent to a burn address.
+
+The first two characters are due to Ravencoin's P2PKH address type of 0x3C and the seeming random characters at the end of each address are the{" "} [public key's checksum](https://en.bitcoin.it/wiki/File:Address_map.jpg) .
+
+|                        | Mainnet Address                    | Testnet Address                    | Amount   |
+| ---------------------- | ---------------------------------- | ---------------------------------- | -------- |
+| Issue Asset            | RXissueAssetXXXXXXXXXXXXXXXXXhhZGt | n1issueAssetXXXXXXXXXXXXXXXXWdnemQ | 500 RVN  |
+| Reissue Asset          | RXReissueAssetXXXXXXXXXXXXXXVEFAWu | n1ReissueAssetXXXXXXXXXXXXXXWG9NLd | 100 RVN  |
+| Issue Sub-Asset        | RXissueSubAssetXXXXXXXXXXXXXWcwhwL | n1issueSubAssetXXXXXXXXXXXXXbNiH6v | 100 RVN  |
+| Issue Unique Asset     | RXissueUniqueAssetXXXXXXXXXXWEAe58 | n1issueUniqueAssetXXXXXXXXXXS4695i | 5 RVN    |
+| Issue Message Channel  | RXissueMsgChanneLAssetXXXXXXSjHvAY | n1issueMsgChanneLAssetXXXXXXT2PBdD | 100 RVN  |
+| Issue Qualifier        | RXissueQuaLifierXXXXXXXXXXXXUgEDbC | n1issueQuaLifierXXXXXXXXXXXXUysLTj | 1000 RVN |
+| Issue Sub-Qualifier    | RXissueSubQuaLifierXXXXXXXXXVTzvv5 | n1issueSubQuaLifierXXXXXXXXXYffPLh | 100 RVN  |
+| Issue Restricted Asset | RXissueRestrictedXXXXXXXXXXXXzJZ1q | n1issueRestrictedXXXXXXXXXXXXZVT9V | 1500 RVN |
+| Add Asset Tag          | RXaddTagBurnXXXXXXXXXXXXXXXXZQm5ya | n1addTagBurnXXXXXXXXXXXXXXXXX5oLMH | 0.1 RVN  |
+| General Burn           | RXBurnXXXXXXXXXXXXXXXXXXXXXXWUo9FV | n1BurnXXXXXXXXXXXXXXXXXXXXXXU1qejP | N/A      |
+
+## Asset Scripts
+
+Here is where the technical protocol-ly stuff starts.
+
+The following sections assume that you are familiar with{" "} [script](https://en.bitcoin.it/wiki/Script) and [transactions](https://en.bitcoin.it/wiki/Transaction).
+
+We do not endorse any of the assets shown in examples.
+
+There are 4 types of asset transfer scripts and 3 types of asset tag scripts. All asset scripts must be in a VOUT with a RVN value of 0.
+
+If you are looking to use this as a guide to parse the ravencoin chain, please see a note at the end of this section.
+
+### New asset script
+
+New asset scripts are used to transfer an amount of an asset into and address during an asset create as well as associate metadata with the created asset.
+
+On chain example:{" "} [8eefce8d264d723b6b8f3cf87bcb400a009d01c2771f94e5cc07af252851aa96](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=8eefce8d264d723b6b8f3cf87bcb400a009d01c2771f94e5cc07af252851aa96&decode=1) {" "} VOUT 3
+
+### Ownership asset script
+
+Ownership asset scripts are used in tandem with a new asset script if the new asset has an associated ownership asset. Notice how ownership assets have no extra information, not even an amount.
+
+| Script portion                                             | Number of bytes                                                                            |                               |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ----------------------------- |
+| Standard vout script (P2PKH)                               | Var bytes                                                                                  |                               |
+| OP_RVN_ASSET (C0)                                          | 1 byte                                                                                     |                               |
+| Length of the asset data (OP_PUSH) (Not including OP_DROP) | 1 or 2 bytes                                                                               |                               |
+| 'rvn' in ascii (72766E)                                    | 3 bytes                                                                                    |                               |
+| Asset script type 'q' (71)                                 | 1 byte                                                                                     |                               |
+| Length of asset name (OP_PUSH)                             | 1 byte                                                                                     |                               |
+| Asset name in ascii                                        | Var bytes                                                                                  |                               |
+| Amount in sats (little endian)                             | 8 bytes                                                                                    |                               |
+| Divisions (00-08)                                          | 1 byte                                                                                     |                               |
+| Reissuability (00-01)                                      | 1 byte                                                                                     |                               |
+| Has associated data (00-01)                                | 1 byte                                                                                     |                               |
+| Associated data (Optional; only if previous byte is 01)    | 0x12 and 0x20 if IPFS data in which case API will encode/decode as IPFS content identifier | 32 bytes of user defined data |
+| OP_DROP (75)                                               | 1 byte                                                                                     |                               |
+
+| Script portion                                             | Number of bytes |
+| ---------------------------------------------------------- | --------------- |
+| Standard vout script (P2PKH)                               | Var bytes       |
+| OP_RVN_ASSET (C0)                                          | 1 byte          |
+| Length of the asset data (OP_PUSH) (Not including OP_DROP) | 1 or 2 bytes    |
+| 'rvn' in ascii (72766E)                                    | 3 bytes         |
+| Asset script type 'o' (6F)                                 | 1 byte          |
+| Length of asset name (OP_PUSH)                             | 1 byte          |
+| Asset name in ascii                                        | Var bytes       |
+| OP_DROP (75)                                               | 1 byte          |
+
+On chain example:{" "} [8eefce8d264d723b6b8f3cf87bcb400a009d01c2771f94e5cc07af252851aa96](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=8eefce8d264d723b6b8f3cf87bcb400a009d01c2771f94e5cc07af252851aa96&decode=1) {" "} VOUT 2
+
+### Reissue asset script
+
+Reissue asset scripts are used to change an asset's metadata. If the amount is not zero, that amount of the asset is created for the pubkey in the standard script.
+
+| Script portion                                                  | Number of bytes                                |
+| --------------------------------------------------------------- | ---------------------------------------------- |
+| Standard vout script (P2PKH)                                    | Var bytes                                      |
+| OP_RVN_ASSET (C0)                                               | 1 byte                                         |
+| Length of the asset data (OP_PUSH) (Not including OP_DROP)      | 1 or 2 bytes                                   |
+| 'rvn' in ascii (72766E)                                         | 3 bytes                                        |
+| Asset script type 'r' (72)                                      | 1 byte                                         |
+| Length of asset name (OP_PUSH)                                  | 1 byte                                         |
+| Asset name in ascii                                             | Var bytes                                      |
+| Amount in sats (little endian) (Amount to add into circulation) | 8 bytes                                        |
+| Divisions (00-08) (FF for unchanged; can only increase)         | 1 byte                                         |
+| Reissuability (00-01)                                           | 1 byte                                         |
+| Associated data (Optional; only if associating new data)        | 1 type byte, 1 length byte, 32 bytes user data |
+| OP_DROP (75)                                                    | 1 byte                                         |
+
+On chain example:{" "} [b9d3ba355acbf58e44e893dccbcad06a10af88727adc340eeacd10d11b026f52](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=b9d3ba355acbf58e44e893dccbcad06a10af88727adc340eeacd10d11b026f52&decode=1) {" "} VOUT 3
+
+### Transfer asset script
+
+Transfer asset scripts are used to transfer an amount of an asset to another address. If transfering an ownership asset, use 100,000,000 (00:E1:F5:05:00:00:00:00) for the sat value.
+
+| Script portion                                             | Number of bytes                                |
+| ---------------------------------------------------------- | ---------------------------------------------- |
+| Standard vout script (P2PKH)                               | Var bytes                                      |
+| OP_RVN_ASSET (C0)                                          | 1 byte                                         |
+| Length of the asset data (OP_PUSH) (Not including OP_DROP) | 1 or 2 bytes                                   |
+| 'rvn' in ascii (72766E)                                    | 3 bytes                                        |
+| Asset script type 't' (74)                                 | 1 byte                                         |
+| Length of asset name (OP_PUSH)                             | 1 byte                                         |
+| Asset name in ascii                                        | Var bytes                                      |
+| Amount in sats (little endian)                             | 8 bytes                                        |
+| Associated data (Optional; only if a broadcast)            | 1 type byte, 1 length byte, 32 bytes user data |
+| OP_DROP (75)                                               | 1 byte                                         |
+
+On chain example:{" "} [bae95f349f15effe42e75134ee7f4560f53462ddc19c47efdd03f85ef4ab8f40](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=bae95f349f15effe42e75134ee7f4560f53462ddc19c47efdd03f85ef4ab8f40&decode=1) {" "} VOUT 0
+
+### Null asset tag script
+
+Dictates if an address is qualified for a restricted asset.
+
+If the asset is a qualifier, a flag of 1 denotes a qualification. A flag of 0 denotes a revocation.
+
+If the asset is a restricted asset, a flag of 1 denotes blacklisting the address. A flag of 0 denotes unblacklisting the address.
+
+| Script portion                        | Number of bytes |
+| ------------------------------------- | --------------- |
+| OP_RVN_ASSET (C0)                     | 1 byte          |
+| Length of the pubkey h160 (OP_PUSH)   | 1 byte          |
+| Pubkey h160                           | 20 bytes        |
+| Length of the asset portion (OP_PUSH) | 1 byte          |
+| Length of the asset name (OP_PUSH)    | 1 byte          |
+| Qualifier or restricted asset name    | Var bytes       |
+| Flag (00-01)                          | 1 byte          |
+
+On chain example:{" "} [4ea3369ef6fb57fc26e176ad5903d4684a8c64f641aa0e1f02e5c7428609e060](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=4ea3369ef6fb57fc26e176ad5903d4684a8c64f641aa0e1f02e5c7428609e060&decode=1) {" "} VOUT 1
+
+### Verifier asset tag script
+
+This script must be sent with a new asset script or a reissue asset script for a restricted asset. It associates qualifiers with the restricted asset.
+
+An asset name portion of 'true' in ascii is the default to denote no associated qualifiers.
+
+| Script portion                             | Number of bytes |
+| ------------------------------------------ | --------------- |
+| OP_RVN_ASSET (C0)                          | 1 byte          |
+| OP_RESERVED (50)                           | 1 byte          |
+| Length of the asset portion (OP_PUSH)      | 1 byte          |
+| Length of the qualifier name(s) (OP_PUSH)  | 1 byte          |
+| Qualifier name(s) (joined with & in ascii) | Var bytes       |
+
+On chain example:{" "} [477a0b2214475d11e316524b500e29837c6763fec256594c2ca7aa369b15888b](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=477a0b2214475d11e316524b500e29837c6763fec256594c2ca7aa369b15888b&decode=1) {" "} VOUT 2
+
+### Global restriction asset tag script
+
+If the flag is 1, this stops all movement of the restricted asset. A flag of 0 re-enables movement.
+
+| Script portion                        | Number of bytes |
+| ------------------------------------- | --------------- |
+| OP_RVN_ASSET (C0)                     | 1 byte          |
+| OP_RESERVED (50)                      | 1 byte          |
+| OP_RESERVED (50)                      | 1 byte          |
+| Length of the asset portion (OP_PUSH) | 1 byte          |
+| Length of the asset name (OP_PUSH)    | 1 byte          |
+| Restricted asset name                 | Var bytes       |
+| Flag (00-01)                          | 1 byte          |
+
+On chain example:{" "} [2fc0bb7e3a33d12ca08f72add0effc3d059cf63382bebcad96e8923e91c3c537](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=2fc0bb7e3a33d12ca08f72add0effc3d059cf63382bebcad96e8923e91c3c537&decode=1) {" "} VOUT 2
+
+\*\*Chain parsing note\*\*
+
+Just like the pirate by-laws, the OP_PUSH after OP_RVN_ASSET can be seen more as a suggestion rather than a rule-of-thumb. Currently nodes accept assets based on whether or not the ‘rvn’ is within 1 or 2 bytes after OP_RVN_ASSET instead of actually reading the OP_PUSH after OP_RVN_ASSET. Because of this, there are some transactions on the chain that have non-standard bytes after OP_RVN_ASSET. (Including lengths that are greater or less than the asset data or bytes that are greater than OP_PUSHDATA4).
+
+If you only want to track ‘good’ transactions you can ignore these, as the vast majority of transactions follow proper serialization protocols. However, these malformed transactions are in fact ‘valid’ outpoints (for now) and if you want an all-encompassing tracking of the chain, you will need to check for these edge cases.
+
+See{" "} [here](https://github.com/Electrum-RVN-SIG/electrumx-ravencoin/blob/0dbe9496196c529ed2a92c202d6b6bc45e917a73/electrumx/server/block_processor.py#L673) {" "} for an example of a full chain parsing or{" "} [here](https://github.com/Electrum-RVN-SIG/electrumx-ravencoin/blob/9acf5dd1d9af7ca038a895b674bad39f0d612807/electrumx/server/mempool.py#L320) {" "} for a best-effort parsing.
+
+## Asset transaction structures
+
+Similar to normal Ravencoin (and bitcoin) transactions, the amount of an asset from the VINS must equal the amount in the VOUTS (Not including created assets).
+
+A RVN fee must be paid for asset-only transactions just like any other.
+
+All of the protocols pertaining to transactions are the same. The only thing that changes is the scripts.
+
+The order of the VOUTS _does_ matter when creating and reissuing assets.
+
+When creating transactions the created ownership asset (if there is one) must be sent to the same address as the created asset.
+
+### Transfer asset transaction
+
+| VINS                                                            | VOUTS                                                   |
+| --------------------------------------------------------------- | ------------------------------------------------------- |
+| RVN outpoint(s) for fee<br/><br/>Asset outpoint(s) for transfer | RVN change address(s)<br/><br/>Asset transfer script(s) |
+
+On chain example:{" "} [bae95f349f15effe42e75134ee7f4560f53462ddc19c47efdd03f85ef4ab8f40](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=bae95f349f15effe42e75134ee7f4560f53462ddc19c47efdd03f85ef4ab8f40&decode=1)
+
+### Creating a main asset transaction
+
+Note that when creating assets, you get to freely determine what address to send the assets and ownership asset to.
+
+| VINS                             | VOUTS                                                                                                             |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| RVN outpoint(s) for fee and burn | Issue asset burn address<br/><br/>RVN change address(s)<br/><br/>Ownership asset script<br/><br/>New asset script |
+
+On chain example:{" "} [8eefce8d264d723b6b8f3cf87bcb400a009d01c2771f94e5cc07af252851aa96](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=8eefce8d264d723b6b8f3cf87bcb400a009d01c2771f94e5cc07af252851aa96&decode=1)
+
+### Creating a sub-asset transaction
+
+| VINS                                                                      | VOUTS                                                                                                                                                                             |
+| ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RVN outpoint(s) for fee and burn<br/><br/>Parent ownership asset outpoint | Issue sub-asset burn address<br/><br/>RVN change address(s)<br/><br/>Transfer asset script (For parent ownership asset)<br/><br/>Ownership asset script<br/><br/>New asset script |
+
+On chain example:{" "} [15127b9ea4c21c323dde1f2dd64b24b12efef2adec43b0b5f2e2377ad4aea369](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=15127b9ea4c21c323dde1f2dd64b24b12efef2adec43b0b5f2e2377ad4aea369&decode=1)
+
+### Creating a unique asset transaction
+
+| VINS                                                                      | VOUTS                                                                                                                                                |
+| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RVN outpoint(s) for fee and burn<br/><br/>Parent ownership asset outpoint | Issue unique asset burn address<br/><br/>RVN change address(s)<br/><br/>Transfer asset script (For parent ownership asset)<br/><br/>New asset script |
+
+On chain example:{" "} [12f39ab78609e312e80c86d1ed3f25937120cbdeee6fc81b1068c400eb1c8518](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=12f39ab78609e312e80c86d1ed3f25937120cbdeee6fc81b1068c400eb1c8518&decode=1)
+
+### Creating a reissue asset transaction
+
+| VINS                                                               | VOUTS                                                                                                                                        |
+| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| RVN outpoint(s) for fee and burn<br/><br/>Ownership asset outpoint | Reissue asset burn address<br/><br/>RVN change address(s)<br/><br/>Transfer asset script (For ownership asset)<br/><br/>Reissue asset script |
+
+On chain example:{" "} [1370040248ba64a2676f125e645a83421adb2859c8c2aacc74017d738309ebda](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=1370040248ba64a2676f125e645a83421adb2859c8c2aacc74017d738309ebda&decode=1)
+
+### Creating a message channel asset transaction
+
+| VINS                                                                      | VOUTS                                                                                                                                                         |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RVN outpoint(s) for fee and burn<br/><br/>Parent ownership asset outpoint | Issue message channel asset burn address<br/><br/>RVN change address(s)<br/><br/>Transfer asset script (For parent ownership asset)<br/><br/>New asset script |
+
+On chain example:{" "} [d5a13003bff69513b1bb172164ba015afd9bd5afc0a2d654cf10daf1ae470a8c](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=d5a13003bff69513b1bb172164ba015afd9bd5afc0a2d654cf10daf1ae470a8c&decode=1)
+
+### Creating a qualifier asset transaction
+
+| VINS                             | VOUTS                                                                                       |
+| -------------------------------- | ------------------------------------------------------------------------------------------- |
+| RVN outpoint(s) for fee and burn | Issue qualifier asset burn address<br/><br/>RVN change address(s)<br/><br/>New asset script |
+
+On chain example:{" "} [748c7e0996e0a4f599c51635c8fce8ddd6ae0e625be640fa4074f51f2574d7a1](https://rvn.cryptoscope.io/tx/?txid=748c7e0996e0a4f599c51635c8fce8ddd6ae0e625be640fa4074f51f2574d7a1)
+
+### Creating a sub-qualifier asset transaction
+
+| VINS                                                            | VOUTS                                                                                                                                             |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RVN outpoint(s) for fee and burn<br/><br/>Parent asset outpoint | Issue sub-qualifier asset burn address<br/><br/>RVN change address(s)<br/><br/>Transfer asset script (For parent asset)<br/><br/>New asset script |
+
+On chain example:{" "} [748c7e0996e0a4f599c51635c8fce8ddd6ae0e625be640fa4074f51f2574d7a1](https://rvn.cryptoscope.io/tx/?txid=748c7e0996e0a4f599c51635c8fce8ddd6ae0e625be640fa4074f51f2574d7a1)
+
+### Creating a restricted asset transaction
+
+| VINS                             | VOUTS                                                                                                                                                           |
+| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RVN outpoint(s) for fee and burn | Issue restricted asset burn address<br/><br/>RVN change address(s)<br/><br/>Verifier asset tag script<br/><br/>Ownership asset script<br/><br/>New asset script |
+
+On chain example:{" "} [c1e61a69bfb3a02f15c44b530a76fee8d69c8b54b0cc69c0fab81a583e3e5c33](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=c1e61a69bfb3a02f15c44b530a76fee8d69c8b54b0cc69c0fab81a583e3e5c33&decode=1)
+
+### Creating a reissue restricted asset with new qualifiers transaction
+
+| VINS                                                               | VOUTS                                                                                                                                                                           |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RVN outpoint(s) for fee and burn<br/><br/>Ownership asset outpoint | Reissue asset burn address<br/><br/>RVN change address(s)<br/><br/>Verifier asset tag script<br/><br/>Transfer asset script (For ownership asset)<br/><br/>Reissue asset script |
+
+On chain example:{" "} [a2b634e160974348647484302501a64bc80a841d4a9ea833498a47e72e987628 (testnet)](https://rvnt.cryptoscope.io/api/getrawtransaction/?txid=a2b634e160974348647484302501a64bc80a841d4a9ea833498a47e72e987628&decode=1)
+
+### Creating a null asset script transaction
+
+| VINS                                                                                       | VOUTS                                                                                                                                                       |
+| ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RVN outpoint(s) for fee and burn<br/><br/>Qualifier or restricted ownership asset outpoint | Tag burn address<br/><br/>RVN change address(s)<br/><br/>Transfer asset script (For qualifier or restricted ownership asset)<br/><br/>Null asset tag script |
+
+On chain example:{" "} [0332beef9c76cf300b166cf5f56e8acd83788201eae1fc93f05364c28cd882f2](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=0332beef9c76cf300b166cf5f56e8acd83788201eae1fc93f05364c28cd882f2&decode=1)
+
+### Creating a freeze restricted asset transaction
+
+| VINS                                                                          | VOUTS                                                                                                                                                        |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| RVN outpoint(s) for fee and burn<br/><br/>Restricted ownership asset outpoint | Tag burn address<br/><br/>RVN change address(s)<br/><br/>Transfer asset script (For restricted ownership asset)<br/><br/>Global restriction asset tag script |
+
+
+On chain example:{" "} [cb6f7a7cf7d65d532101a259ef37cebff77ccb1e9f86823910537d6580071668](https://rvn.cryptoscope.io/api/getrawtransaction/?txid=cb6f7a7cf7d65d532101a259ef37cebff77ccb1e9f86823910537d6580071668&decode=1)
+
+export default ({ children }) => (
+  <PageSidebarLayout meta={meta}>{children}</PageSidebarLayout>
+);

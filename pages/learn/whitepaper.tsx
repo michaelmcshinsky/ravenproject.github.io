@@ -1,3 +1,7 @@
+import { PageHeader } from "@/components"
+
 export default function Whitepaper() {
-  return <div>Whitepaper</div>;
+  return (
+    <PageHeader title="Whitepaper"/>
+  )
 }

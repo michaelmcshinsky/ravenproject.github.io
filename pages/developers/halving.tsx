@@ -1,3 +1,7 @@
+import { PageHeader } from "@/components"
+
 export default function Halving() {
-  return <div>Halving</div>;
+  return (
+    <PageHeader title="Halving"/>
+  )
 }

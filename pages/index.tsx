@@ -8,10 +8,10 @@ import styles from "../styles/Home.module.css";
 export default function Home() {
   return (
     <>
-      <section className="relative max-w-7xl px-4 py-48 mx-auto overflow-hidden">
+      <section className="relative px-4 py-48 mx-auto overflow-hidden max-w-7xl">
         <div className="relative z-20">
           <Reveal>
-            <h1 className="max-w-xl mb-4 text-7xl font-bold leading-tight text-blue-900 sm:text-5xl">
+            <h1 className="max-w-xl mb-4 font-bold leading-tight text-blue-900 text-7xl sm:text-5xl">
               Issue assets and securities on a secure and decentralized
               blockchain
             </h1>
@@ -29,7 +29,7 @@ export default function Home() {
                   Get Started
                 </a>
               </Link>
-              <Link href="/wallet">
+              <Link href="/usage/wallet">
                 <a className="px-4 py-4 mx-4 my-3 ml-0 font-medium leading-none duration-200 transform bg-gray-100 border-2 rounded hover:text-white hover:bg-raven-blue hover:border-raven-blue active:bg-raven-blue active:border-raven-blue focus:bg-raven-blue focus:border-raven-blue ease">
                   Choose Your Wallet
                 </a>

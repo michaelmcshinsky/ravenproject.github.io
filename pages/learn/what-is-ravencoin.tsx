@@ -1,5 +1,7 @@
+import { PageHeader } from "@/components"
+
 export default function WhatIsRavencoin() {
   return (
-    <div>WhatIsRavencoin</div>
+    <PageHeader title="What is Ravencoin?"/>
   )
 }

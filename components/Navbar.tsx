@@ -33,32 +33,29 @@ export function Navbar() {
             <div className="flex space-x-1">
               <NavbarLink href="/">Home</NavbarLink>
               <Dropdown title="Usage">
-                <NavbarLink href="/usage/wallets">Get Your Wallet</NavbarLink>
+                <NavbarLink href="/usage/wallet">Get Your Wallet</NavbarLink>
+                <NavbarLink href="/usage/buy-rvn">Buy Ravencoin</NavbarLink>
                 <NavbarLink href="/usage/mint-assets">Mint Assets</NavbarLink>
-                <NavbarLink href="/usage/get-rvn">Get Ravencoin</NavbarLink>
-                <NavbarLink href="/usage/run-a-node">Run a Node</NavbarLink>
+                <NavbarLink href="/usage/asset-markets">Asset Markets</NavbarLink>
               </Dropdown>
               <Dropdown title="Learn">
+                <NavbarLink href="/learn/guides-and-resources">
+                  Guides &amp; Resources
+                </NavbarLink>
                 <NavbarLink href="/learn/what-is-ravencoin">
                   What is Ravencoin?
                 </NavbarLink>
                 <NavbarLink href="/learn/what-is-rvn">What is RVN?</NavbarLink>
-                <NavbarLink href="/learn/what-is-rvn">
+                <NavbarLink href="/learn/assets">
                   Ravecoin Assets
                 </NavbarLink>
                 <NavbarLink href="/learn/whitepaper">
                   Ravencoin Whitepaper
                 </NavbarLink>
-                <NavbarLink href="/learn/guides-and-resources">
-                  Guides &amp; Resources
-                </NavbarLink>
               </Dropdown>
               <Dropdown title="Developers">
                 <NavbarLink href="/developers">
                   Developer Portal
-                </NavbarLink>
-                <NavbarLink href="/developers/documentation">
-                  Documentation
                 </NavbarLink>
                 <NavbarLink href="/developers/tutorials">Tutorials</NavbarLink>
                 <NavbarLink href="/developers/pools">Mining Pools</NavbarLink>
@@ -66,8 +63,8 @@ export function Navbar() {
               </Dropdown>
               <Dropdown title="Community">
                 <NavbarLink href="/community/hub">Community Hub</NavbarLink>
-                <NavbarLink href="/community/online">
-                  Online Communities
+                <NavbarLink href="/community/showcase">
+                  Showcase
                 </NavbarLink>
                 <NavbarLink href="/community/get-involved">
                   Get Involved

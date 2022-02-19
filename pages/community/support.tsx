@@ -1,5 +1,7 @@
+import { PageHeader } from "@/components"
+
 export default function GetSupport() {
   return (
-    <div>GetSupport</div>
+    <PageHeader title="Get Support" color="orange" />
   )
 }

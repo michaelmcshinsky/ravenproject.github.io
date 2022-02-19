@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/layout";
 import { Container } from "@/components";
 import Image from "next/image";
 
@@ -27,26 +28,9 @@ const DESKTOP_WALLETS = [
 
 export default function Wallets() {
   return (
-    <div className="pb-24">
-      <section className="py-24 page-banner">
-        <Container width="3xl">
-          <h1 className="mb-4 text-4xl font-medium text-center font-flow">
-            Get a Wallet
-          </h1>
-          <p className="font-flow">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eu
-            erat id dolor efficitur accumsan et ut enim. Ut tincidunt eu risus
-            et mollis. Cras finibus dui id odio gravida, in volutpat urna
-            congue. Proin in tortor bibendum, vulputate est sollicitudin,
-            pharetra est. Fusce vel facilisis justo. Aliquam quis nulla sodales,
-            dictum magna a, egestas turpis. Aenean congue sit amet tortor eget
-            hendrerit. Maecenas enim felis, vestibulum sed augue vel, eleifend
-            volutpat magna. Aliquam convallis fringilla dignissim. Maecenas
-            lectus ligula, luctus eget dignissim ut, tristique vulputate neque.
-          </p>
-        </Container>
-      </section>
-      <section className="py-24">
+    <>
+      <PageHeader title="Get a Wallet" color="yellow" />
+      <section className="py-8">
         <Container>
           <h2 className="mt-6 mb-1 text-xl">What is a wallet?</h2>
           <p>
@@ -60,7 +44,8 @@ export default function Wallets() {
             If you want to buy or transfer funds, mint or distribute assets, or
             participate in Ravencoin blockchain technologies, then you will want
             to get yourself a digital wallet. Since your wallet acts as your
-            personal account, never share your private keys with any third-party entity.
+            personal account, never share your private keys with any third-party
+            entity.
           </p>
           <h2 className="mt-6 mb-1 text-xl">How do I get a wallet?</h2>
           <p>
@@ -69,7 +54,7 @@ export default function Wallets() {
           </p>
         </Container>
       </section>
-      <section>
+      <section className="pb-24">
         <Container>
           <h3 className="pb-4 my-8 text-2xl border-b border-gray-300 text-raven-orange">
             Desktop Wallets
@@ -116,6 +101,6 @@ export default function Wallets() {
           </h3>
         </Container>
       </section>
-    </div>
+    </>
   );
 }

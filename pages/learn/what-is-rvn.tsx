@@ -1,5 +1,7 @@
+import { PageHeader } from "@/components"
+
 export default function WhatIsRvn() {
   return (
-    <div>WhatIsRvn</div>
+    <PageHeader title="What is RVN?"/>
   )
 }
