@@ -1,0 +1,37 @@
+- lang:
+  links:
+  - name: Home
+    href: /
+  - name: Buy Ravencoin
+    href: /buy-ravencoin/
+  - name: Wallets
+    href: /wallet/
+  - name: Community
+    href: /community/
+  - name: Pools
+    href: /pools/
+  - name: Updates
+    href: /updates/
+  - name: About
+    href: /about/
+  - name: Projects
+    href: /projects/
+
+- lang: de
+  links:
+  - name: Home
+    href: /de/
+  - name: Ravencoin Kaufen
+    href: /de/ravencoin-kaufen/
+  - name: Wallets
+    href: /de/wallet/
+  - name: Community
+    href: /de/community/
+  - name: Pools
+    href: /de/pools/
+  - name: Updates
+    href: /de/updates/
+  - name: Über uns
+    href: /de/über-uns/
+  - name: Projekte
+    href: /de/projekte/

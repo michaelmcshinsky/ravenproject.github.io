@@ -1,14 +1,14 @@
 ---
 layout: default
 title: Home
-permalink: /
 modalTitle: "Announcement"
 modalContent: 'New Wallet Release: Upgrade to Version 4.6.1 <a href="/wallet">Click Here to Upgrade</a>'
 modalId: "upgrade-notification"
 modalCacheRef: "4.6.1"
+permalink: /
 ---
 
-<link href="/assets/vendors/mediabox/mediabox.css" rel="stylesheet">
+<link href="{{ "/assets/vendors/mediabox/mediabox.css" | relative_url }}" rel="stylesheet">
 <style>
   .hero-buttons {
     margin: 50px 0;
@@ -17,7 +17,7 @@ modalCacheRef: "4.6.1"
     border: 2px solid #f15b22;
   }
   .banner {
-    background: url("/assets/img/home/gplaypattern.png");
+    background: url({{ "/assets/img/home/gplaypattern.png" | relative_url }});
     padding: 12em 0 13em;
     animation: animatedBackground 15s linear infinite;
     -moz-animation: animatedBackground 15s linear infinite;
@@ -126,7 +126,7 @@ modalCacheRef: "4.6.1"
       <div id="tab-1" class="tab-pane active">
         <div class="flex flex-wrap">
           <div class="w-full md:w-1/3 lg:w-1/4 text-center">
-            <img class="animated mb-4" id="tab-gold" style="max-width: 150px;margin-top: 15px;" src="{{"/assets/img/svg/gold.svg"}}" alt="gold"/>
+            <img class="animated mb-4" id="tab-gold" style="max-width: 150px;margin-top: 15px;" src="{{"/assets/img/svg/gold.svg" | relative_url }}" alt="gold"/>
           </div>
           <div class="sm:w-full md:w-2/3 lg:w-3/4">
             <h3 class="text-white">Representing a share of a project</h3>
@@ -148,7 +148,7 @@ modalCacheRef: "4.6.1"
       <div id="tab-2" class="tab-pane">
         <div class="flex flex-wrap">
           <div class="w-full md:w-1/3 lg:w-1/4 text-center">
-            <img class="animated mb-4" id="tab-tickets" style="max-width: 150px;margin-top: 15px;" src="{{"/assets/img/svg/tickets.svg"}}" alt="tickets"/>
+            <img class="animated mb-4" id="tab-tickets" style="max-width: 150px;margin-top: 15px;" src="{{"/assets/img/svg/tickets.svg" | relative_url }}" alt="tickets"/>
           </div>
           <div class="sm:w-full md:w-2/3 lg:w-3/4">
             <h3 class="text-white">Representing virtual goods</h3>
@@ -164,7 +164,7 @@ modalCacheRef: "4.6.1"
       <div id="tab-3" class="tab-pane">
         <div class="flex flex-wrap">
           <div class="w-full md:w-1/3 lg:w-1/4 text-center">
-            <img class="animated mb-4" id="tab-token" style="max-width: 150px;margin-top: 15px;" src="{{"/assets/img/svg/token.svg"}}" alt="token"/>
+            <img class="animated mb-4" id="tab-token" style="max-width: 150px;margin-top: 15px;" src="{{"/assets/img/svg/token.svg" | relative_url }}" alt="token"/>
           </div>
           <div class="sm:w-full md:w-2/3 lg:w-3/4">
            <h3 class="text-white">Representing real world custodied physical or digital asset</h3>
@@ -180,7 +180,7 @@ modalCacheRef: "4.6.1"
       <div id="tab-4" class="tab-pane">
         <div class="flex flex-wrap">
           <div class="w-full md:w-1/3 lg:w-1/4 text-center">
-            <img class="animated mb-4" id="tab-gift-card" style="max-width: 150px;" src="{{"/assets/img/svg/gift-card.svg"}}" alt="gift-card"/>
+            <img class="animated mb-4" id="tab-gift-card" style="max-width: 150px;" src="{{"/assets/img/svg/gift-card.svg" | relative_url }}" alt="gift-card"/>
           </div>
           <div class="sm:w-full md:w-2/3 lg:w-3/4">
             <h3 class="text-white">Representing a credit</h3>
@@ -210,7 +210,7 @@ modalCacheRef: "4.6.1"
         </ul>
       </div>
       <div class="w-full sm:w-full md:w-1/4 text-center hidden md:block">
-        <img id="logo-why" class="animated" style="margin-top: 30px;" src="{{"/assets/img/home/raven-flock.png"}}" alt="ravencoin logo">
+        <img id="logo-why" class="animated" style="margin-top: 30px;" src="{{"/assets/img/home/raven-flock.png" | relative_url }}" alt="ravencoin logo">
       </div>
     </div>
   </div>
@@ -234,7 +234,7 @@ modalCacheRef: "4.6.1"
       {% for exchange in site.data.exchanges %}
       <div class="mb-6 px-2 sm:w-1/2 md:w-1/3">
         <div class="bg-grey-lighter max-w-sm rounded overflow-hidden shadow-md hover:by-grey enlarge-on-hover">
-          <a class="block px-6 py-4" href="{{ exchange.url }}" target="_blank" rel="nofollow"><img src="{{ exchange.logo }}" alt="{{ exchange.name }} exchange"/></a>
+          <a class="block px-6 py-4" href="{{ exchange.url }}" target="_blank" rel="nofollow"><img src="{{ exchange.logo | relative_url }}" alt="{{ exchange.name }} exchange"/></a>
         </div>
       </div>
       {% endfor %}
@@ -249,7 +249,7 @@ modalCacheRef: "4.6.1"
   <a class="twitter-timeline" data-width="600" data-height="600" data-dnt="true" data-theme="dark" href="https://twitter.com/Ravencoin?ref_src=twsrc%5Etfw">Tweets by Ravencoin</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <a class="twitter-timeline" data-width="600" data-height="600" data-dnt="true" data-theme="dark" href="https://twitter.com/Ravencoin/likes?ref_src=twsrc%5Etfw">Tweets Liked by Ravencoin</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </div>
-<script src="/assets/vendors/mediabox/mediabox.js"></script>
+<script src="{{ "/assets/vendors/mediabox/mediabox.js" | relative_url }}"></script>
 <script>
   MediaBox('.mediabox');
 </script>

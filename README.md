@@ -15,6 +15,14 @@ amount of the bounty if it gets merged.
 
 ## Setup the website locally
 https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/
+
+```sh
+# bundle the dependencies
+bundle
+# run locally
+jekyll serve
+```
+
 View site on localhost:4000
 
 ## How to Participate
@@ -27,6 +35,14 @@ View site on localhost:4000
 7. Add comment to pull request to your local fork of the website. https://`username`.github.io
 8. Click the Create Pull Request button
 9. Wait for PR to be approved!
+
+## Internationalizatoin
+
+This repository uses [`jekyll-multiple-languages-plugin`](https://github.com/kurtsson/jekyll-multiple-languages-plugin) for multi-language management. In order to properly utilize the functionality, please use the following:
+
+* Content Management - `/_i18n/...`
+* Meta data - `/_18n/[language].yaml`.
+* One-off configurations - `/_data/i18n/[language]/...`
 
 ### Code of Conduct
 Participation in this project is subject to a [Code of Conduct](https://github.com/RavenProject/ravenproject.github.io/blob/master/CODE_OF_CONDUCT.md).

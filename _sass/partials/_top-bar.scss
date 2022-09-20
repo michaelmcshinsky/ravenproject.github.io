@@ -4,6 +4,16 @@
   .top-bar-content {
     display: flex;
     justify-content: space-between;
+    a, a:visited {
+      color: white;
+      font-size: .85rem;
+      &:active,
+      &:focus,
+      &:hover {
+        opacity: 0.7;
+        text-decoration: none;
+      }
+    }
   }
   .social-media-links {
     list-style: none;
@@ -18,9 +28,6 @@
         padding: 0;
         margin-left: 10px;
         transition: 0.25s ease;
-        &:hover {
-          opacity: 0.7;
-        }
       }
     }
   }

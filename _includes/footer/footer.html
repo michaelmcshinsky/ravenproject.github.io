@@ -5,11 +5,11 @@
     <div class="wrapper pb-8 flex flex-wrap border-b border-w-1 border-grey justify-between text-center">
       <div class="w-full sm:w-1/2 md:w-1/2 sm:text-left md:text-left">
         <a class="inline-block mb-4 text-white text-2xl" href="/">
-          <img style="max-height: 45px;" src="/assets/img/media/logo-wide-sm-white.png" alt="footer logo" />
+          <img style="max-height: 45px;" src="{{ "/assets/img/media/logo-wide-sm-white.png" | relative_url }}" alt="footer logo" />
         </a>
         <!-- <div>Donate and Support:</div>
          <a class="inline-block mb-3 text-white hover:text-grey" href="raven:RLAAfXwoQGdRvqupMrrL7j57gzfHFqCxca" target="_blank">RLAAfXwoQGdRvqupMrrL7j57gzfHFqCxca</a>
-         <img class="block mb-8 m-auto sm:m-0" style="max-width: 125px;" src="{{" /assets/img/donate/raven-qr.png "}}" alt="donate" />
+         <img class="block mb-8 m-auto sm:m-0" style="max-width: 125px;" src="{{"/assets/img/donate/raven-qr.png "}}" alt="donate" />
         TODO: Add Donation's back someday? -->
        </div>
       <div class="w-full sm:w-1/2 md:w-1/2 text-left">
@@ -103,9 +103,9 @@
         </div>
       </div>
       <div class="footer-right w-full sm:w-1/2 flex mt-4 sm:mt-0 m-auto justify-center sm:justify-end">
-        {%- include social.html -%}
+        {%- include footer/social.html -%}
       </div>
     </div>
   </div>
 </footer>
-{%- include modal.html -%}
+{%- include footer/modal.html -%}

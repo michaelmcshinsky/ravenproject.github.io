@@ -1,5 +1,8 @@
 .bundle
 .sass-cache
+.jekyll-metadata
+.jekyll-cache
+.DS_Store
 Gemfile.lock
 _site
 *.gem
@@ -7,3 +10,4 @@ _site
 # Mac specific
 .DS_Store
 /.vs
+.idea/

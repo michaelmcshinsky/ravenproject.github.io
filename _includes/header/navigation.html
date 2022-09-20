@@ -1,0 +1,16 @@
+{% assign url_language = page.url | split: "/" %}
+{% assign lang = url_language[1] %}
+
+{% for navigation in site.data.i18n.navigation %}
+  {% if navigation.lang == lang %}
+    {% assign links = navigation.links %}
+  {% endif %}
+{% endfor %}
+
+{% unless links == empty %}
+  {% assign links = site.data.i18n.navigation[0].links %}
+{% endunless %}
+
+{% for link in links %}
+  <a class="page-link" href="{{ link.href | relative_url }}">{{ link.name | escape }}</a>
+{% endfor %}

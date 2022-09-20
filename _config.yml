@@ -2,7 +2,7 @@ title: Ravencoin
 author: RavenProject
 description: A peer-to-peer blockchain designed to handle the efficient creation and transfer of assets from one party to another. It's an open-source project based on Bitcoin
 
-baseurl: ""
+baseurl: "/ravenproject.github.io"
 
 # social links
 twitter_username: ravencoin
@@ -16,20 +16,6 @@ show_excerpts: false
 minima:
   date_format: "%b %-d, %Y"
 
-# If you want to link only specific pages in your header, uncomment
-# this and add the path to the pages in order as they should show up
-header_pages:
- - _pages/index.md
- - _pages/buy-ravencoin.md
- - _pages/wallet.md
- - _pages/whitepaper.md
- - _pages/community.md
- - _pages/pools.md
- - _pages/updates.md
- - _pages/about.md
- - _pages/projects.md
- - _pages/ledger.md
-
 # Build settings
 theme: minima
 relative_permalinks: false
@@ -37,19 +23,39 @@ relative_permalinks: false
 # Reading Files
 include:
   - _pages
+  - _pages_de
   - _posts
   - _wallets
   - _translations
 
+locales:
+  - default:
+    baseurl: "/"
+    name: English
+    lang: en-US
+  - de:
+    baseurl: /de
+    name: Deutsch
+    lang: de-De
+
+permalink: pretty
+
 # Defaults
 defaults:
-  # _pages
   - scope:
       path: ""
       type: pages
     values:
       layout: default
+      lang: en-US
+  - scope:
+      path: "*_de/"
+    values:
+      locale: de
+      lang: de-De
+      permalink: "/de/:basename"
 
 plugins:
- - jekyll-feed
- - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-feed

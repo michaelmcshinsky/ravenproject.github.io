@@ -1,0 +1,129 @@
+navigation:
+  - name: Navigation
+    lang: en
+    links:
+    - name: Home
+      href: /
+    - name: About
+      href: /about/
+    - name: Wallet
+      href: /wallet/
+    - name: How to Buy
+      href: /buy-ravencoin/
+    - name: Whitepaper
+      href: /whitepaper/
+  - name: Navigation
+    lang: de
+    links:
+    - name: Home
+      href: /
+    - name: Über uns
+      href: /de/über-uns/
+    - name: Wallet
+      href: /wallet/
+    - name: How to Buy
+      href: /de/ravencoin-kaufen/
+    - name: Whitepaper
+      href: /whitepaper/
+
+developers:
+  - name: Developers
+    lang: en
+    links:
+    - name: Block Explorer
+      href: https://ravencoin.network/rvn
+      external: true
+    - name: Block Explorer 2
+      href: https://rvn.tokenview.com/
+      external: true
+    - name: Asset Explorer 1
+      href: https://www.assetsexplorer.com/
+      external: true
+    - name: Asset Explorer 2
+      href: https://ravencoin.asset-explorer.net/
+      external: true
+    - name: Halving
+      href: /halving/
+    - name: Node Map
+      href: https://www.ravennodes.com/
+      external: true
+    - name: Github
+      href: https://github.com/RavenProject/Ravencoin
+      external: true
+    - name: Mining Pools
+      href: /pools/
+  - name: Developers
+    lang: de
+    links:
+    - name: Block Explorer
+      href: https://ravencoin.network/rvn
+      external: true
+    - name: Block Explorer 2
+      href: https://rvn.tokenview.com/
+      external: true
+    - name: Asset Explorer 1
+      href: https://www.assetsexplorer.com/
+      external: true
+    - name: Asset Explorer 2
+      href: https://ravencoin.asset-explorer.net/
+      external: true
+    - name: Halving
+      href: /halving/
+    - name: Node Map
+      href: https://www.ravennodes.com/
+      external: true
+    - name: Github
+      href: https://github.com/RavenProject/Ravencoin
+      external: true
+    - name: Mining Pools
+      href: /pools/
+
+community:
+  - name: Community
+    lang: en
+    links:
+    - name: Ravencoin Meetups
+      href: https://www.ravencoinmeetup.org/
+      external: true
+    - name: Bitcoin Talk
+      href: https://bitcointalk.org/index.php?topic=3238497
+      external: true
+    - name: Discord
+      href: https://discord.com/invite/jn6uhur
+      external: true
+    - name: Telegram
+      href: https://t.me/RavencoinDev
+      external: true
+    - name: Reddit
+      href: https://www.reddit.com/r/Ravencoin/
+      external: true
+    - name: Medium
+      href: https://medium.com/@ravencoin
+      external: true
+    - name: Facebook
+      href: https://www.facebook.com/groups/RavenCoinNest
+      external: true
+  - name: Community
+    lang: de
+    links:
+    - name: Ravencoin Meetups
+      href: https://www.ravencoinmeetup.org/
+      external: true
+    - name: Bitcoin Talk
+      href: https://bitcointalk.org/index.php?topic=3238497
+      external: true
+    - name: Discord
+      href: https://discord.com/invite/jn6uhur
+      external: true
+    - name: Telegram
+      href: https://t.me/RavencoinDev
+      external: true
+    - name: Reddit
+      href: https://www.reddit.com/r/Ravencoin/
+      external: true
+    - name: Medium
+      href: https://medium.com/@ravencoin
+      external: true
+    - name: Facebook
+      href: https://www.facebook.com/groups/RavenCoinNest
+      external: true
