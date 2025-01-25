@@ -1,7 +1,7 @@
 import { DropdownMenu } from "radix-ui";
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { useTranslation } from "react-i18next";
-import { FlagFrench } from "./FlagFrench";
+import { FlagSpanish } from "./FlagSpanish";
 import { FlagEnglish } from "./FlagEnglish";
 import { useNavigate } from "@tanstack/react-router";
 
@@ -21,7 +21,7 @@ export const LanguageSwitcher = () => {
           aria-label="Select Language"
           className="flex items-center gap-1"
         >
-          {i18n.language === "en" ? <FlagEnglish /> : <FlagFrench />}
+          {i18n.language === "en" ? <FlagEnglish /> : <FlagSpanish />}
           <ChevronDownIcon />
         </button>
       </DropdownMenu.Trigger>
@@ -41,11 +41,11 @@ export const LanguageSwitcher = () => {
           </DropdownMenu.Item>
           <DropdownMenu.Item
             className="hover:text-blue-500 cursor-pointer group relative flex gap-2 x h-[25px] select-none items-center rounded-[3px] pr-[5px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1"
-            onClick={() => changeLanguage("fr")}
+            onClick={() => changeLanguage("es")}
           >
-            <FlagFrench />
-            French
-            {i18n.language === "fr" ? <CheckIcon /> : undefined}
+            <FlagSpanish />
+            Español
+            {i18n.language === "es" ? <CheckIcon /> : undefined}
           </DropdownMenu.Item>
           <DropdownMenu.Arrow className="fill-white" />
         </DropdownMenu.Content>
