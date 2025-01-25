@@ -16,39 +16,39 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const AboutLazyImport = createFileRoute('/about')()
-const IndexLazyImport = createFileRoute('/')()
+const LangIndexLazyImport = createFileRoute('/$lang/')()
+const LangAboutLazyImport = createFileRoute('/$lang/about')()
 
 // Create/Update Routes
 
-const AboutLazyRoute = AboutLazyImport.update({
-  id: '/about',
-  path: '/about',
+const LangIndexLazyRoute = LangIndexLazyImport.update({
+  id: '/$lang/',
+  path: '/$lang/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/$lang/index.lazy').then((d) => d.Route))
 
-const IndexLazyRoute = IndexLazyImport.update({
-  id: '/',
-  path: '/',
+const LangAboutLazyRoute = LangAboutLazyImport.update({
+  id: '/$lang/about',
+  path: '/$lang/about',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/$lang/about.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+    '/$lang/about': {
+      id: '/$lang/about'
+      path: '/$lang/about'
+      fullPath: '/$lang/about'
+      preLoaderRoute: typeof LangAboutLazyImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutLazyImport
+    '/$lang/': {
+      id: '/$lang/'
+      path: '/$lang'
+      fullPath: '/$lang'
+      preLoaderRoute: typeof LangIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -57,38 +57,38 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexLazyRoute
-  '/about': typeof AboutLazyRoute
+  '/$lang/about': typeof LangAboutLazyRoute
+  '/$lang': typeof LangIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexLazyRoute
-  '/about': typeof AboutLazyRoute
+  '/$lang/about': typeof LangAboutLazyRoute
+  '/$lang': typeof LangIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
-  '/about': typeof AboutLazyRoute
+  '/$lang/about': typeof LangAboutLazyRoute
+  '/$lang/': typeof LangIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths: '/$lang/about' | '/$lang'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to: '/$lang/about' | '/$lang'
+  id: '__root__' | '/$lang/about' | '/$lang/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
-  AboutLazyRoute: typeof AboutLazyRoute
+  LangAboutLazyRoute: typeof LangAboutLazyRoute
+  LangIndexLazyRoute: typeof LangIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexLazyRoute: IndexLazyRoute,
-  AboutLazyRoute: AboutLazyRoute,
+  LangAboutLazyRoute: LangAboutLazyRoute,
+  LangIndexLazyRoute: LangIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -101,15 +101,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/about"
+        "/$lang/about",
+        "/$lang/"
       ]
     },
-    "/": {
-      "filePath": "index.lazy.tsx"
+    "/$lang/about": {
+      "filePath": "$lang/about.lazy.tsx"
     },
-    "/about": {
-      "filePath": "about.lazy.tsx"
+    "/$lang/": {
+      "filePath": "$lang/index.lazy.tsx"
     }
   }
 }
